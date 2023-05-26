@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const LoginApi = (setUser, setReload, loginData) => {
   axios
-    .post("http://localhost:8080/home", loginData)
+    .post("http://localhost:8080/login", loginData)
     .then((response) => {
       setReload(false);
       console.log(response);
@@ -13,4 +13,3 @@ export const LoginApi = (setUser, setReload, loginData) => {
       console.log(error);
     });
 };
-
