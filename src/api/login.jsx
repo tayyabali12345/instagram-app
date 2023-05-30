@@ -1,10 +1,9 @@
 import axios from "axios";
 
-export const LoginApi = (setUser, setReload, loginData) => {
+export const LoginApi = (setUser, loginData) => {
   axios
     .post("http://localhost:8080/login", loginData)
     .then((response) => {
-      setReload(false);
       console.log(response);
       setUser(response.data);
     })
@@ -12,4 +11,8 @@ export const LoginApi = (setUser, setReload, loginData) => {
       setUser(null);
       console.log(error);
     });
+};
+
+export const SignUpApi = async SignUpData => {
+  return await axios.post("http://localhost:8080/signup", SignUpData)
 };
