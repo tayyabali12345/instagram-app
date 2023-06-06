@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginApi } from "../../api/login.jsx";
 import SignUpPage from "../login/signup.jsx";
-import { Home } from "../../components/user/Home.jsx";
 
 const LoginIndex = () => {
   const [username, setUsername] = useState("");
@@ -10,19 +9,21 @@ const LoginIndex = () => {
   const [signup, setSignUp] = useState(false);
   const [login, setLogin] = useState(true);
 
-  const [user, setUser] = useState([]);
-
   const loginData = {
     username: username,
     password: password,
   };
 
+  let responsedata = null;
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    LoginApi(setUser, loginData);
-
-    navigate("/home", { state: { prop: user } });
+    LoginApi(loginData).then((res) => {
+      responsedata = res.data;
+      navigate("/home", {
+        state: { signedUser: responsedata, functionality: "signin" },
+      });
+    });
   };
 
   const handleSignUp = () => {

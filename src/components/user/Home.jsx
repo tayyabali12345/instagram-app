@@ -1,11 +1,19 @@
 import { useLocation } from "react-router-dom";
 import React, { useRef } from "react";
-import { StoreImageApi } from "../../api/login.jsx";
+import { StoreImageApi, AllPostsApi } from "../../api/login.jsx";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Show } from "../user/Show";
 
 export function Home(props) {
   const location = useLocation();
   const { signedUser, functionality } = location.state;
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    AllPostsApi(setPosts);
+  }, []);
+
   let responsedata = null;
   const navigate = useNavigate();
 
@@ -42,35 +50,32 @@ export function Home(props) {
       {(() => {
         if (signedUser === "0" && functionality === "signup") {
           return <h1>This Email is already in use</h1>;
+        } else if (functionality === "signin" && signedUser != null) {
+          const userId = signedUser.id;
+          sessionStorage.setItem("userId", userId);
+        } else if (functionality === null && signedUser === null) {
         } else {
-          // here store the id of user in session
-          // Get the user ID from the API or any other source
-          // const userId = signedUser;
-
-          // // Store the user ID in sessionStorage
-          // sessionStorage.setItem("userId", userId);
-
           const userId = signedUser;
           sessionStorage.setItem("userId", userId);
-
-          return (
-            <>
-              <h1>Welcome</h1>
-              <p>Thank you for visiting our website.</p>
-
-              <button onClick={handleButtonClick}>Select File</button>
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleFileInputChange}
-              />
-            </>
-          );
         }
-      })()}
 
-      {/* here to show instagram post */}
+        return (
+          <>
+            <h1>Welcome</h1>
+            <p>Thank you for visiting our website.</p>
+
+            <button onClick={handleButtonClick}>Select File</button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleFileInputChange}
+            />
+
+            {posts.length > 0 && <Show posts={posts} setPosts={setPosts} />}
+          </>
+        );
+      })()}
     </div>
   );
 }
