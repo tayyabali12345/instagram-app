@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { DeleteImageApi, EditImageApi } from "../../api/login.jsx";
+import { DeleteImageApi, EditImageApi } from "../../api/instagramApi.jsx";
 import { useState, useEffect } from "react";
+import Footer from "../../pages/common/footer";
+import Header from "../../pages/common/header";
 
 export function Show(props) {
   const { posts, setPosts } = props;
+  console.log(posts);
   const [reload, setReload] = useState(false);
   const [signedUser, setSignedUser] = useState(null);
   const [editedContent, setEditedContent] = useState("");
@@ -64,45 +67,54 @@ export function Show(props) {
   };
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
+    <div style={{ display: "flex", flexDirection: "column" }}>
       {posts.map((post) => (
         <div key={post.id} style={{ marginBottom: "20px" }}>
-          <p>Post Description: {post.content}</p>
-          <p>User: {post.employee?.name}</p>
-
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <img
-              src={post.uri}
-              alt="Post Image"
-              style={{
-                maxWidth: "700px",
-                height: "600px",
-                objectFit: "contain",
-              }}
-            />
-          </div>
-
-          {post.employee?.id == signedUser && (
-            <div>
-              <button onClick={() => handleDelete(post.id)}>Delete Post</button>
-              <label style={{ marginLeft: "20%" }} htmlFor="editedContentInput">
-                Edited Description:
-              </label>
+          <p className="allpost">
+            User: <span className="custom">{post.user?.name}</span>
+          </p>
+          <p className="allpost">
+            Description: <span className="custom">{post.content}</span>
+          </p>
+          <div style={{ display: "flex" }}>
+            <div style={{ flex: "1", marginLeft: "5%", marginTop: "5%" }}>
+              <button className="btn3" onClick={() => handleDelete(post.id)}>
+                Delete Post
+              </button>
+              <br />
+              <br />
+              <button className="btn2" onClick={() => handleEditPost(post.id)}>
+                Save Edit
+              </button>
               <input
                 id="editedContentInput"
+                placeholder="Type New Description"
                 type="text"
                 value={editedContent}
                 onChange={handleInputChange}
+                style={{
+                  width: "300px",
+                  height: "20px",
+                  fontSize: "12px",
+                  padding: "6px",
+                  marginBottom: "0.5rem",
+                  marginRight: "0.5%",
+                }}
               />
-              <button
-                style={{ marginLeft: "10px" }}
-                onClick={() => handleEditPost(post.id)}
-              >
-                Save Edit
-              </button>
             </div>
+            <div>
+              <img
+                src={post.uri}
+                alt="Post Image"
+                style={{
+                  maxWidth: "700px",
+                  height: "600px",
+                  objectFit: "contain",
+                  marginTop: "5%",
+                }}
+              />
+            </div>
+          </div>
           )}
         </div>
       ))}

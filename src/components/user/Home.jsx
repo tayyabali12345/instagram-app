@@ -1,9 +1,11 @@
 import { useLocation } from "react-router-dom";
 import React, { useRef } from "react";
-import { StoreImageApi, AllPostsApi } from "../../api/login.jsx";
+import { StoreImageApi, AllPostsApi } from "../../api/instagramApi.jsx";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Show } from "../user/Show";
+import Footer from "../../pages/common/footer";
+import Header from "../../pages/common/header";
 
 export function Home(props) {
   const location = useLocation();
@@ -37,12 +39,18 @@ export function Home(props) {
     console.log(fileData.filelocation);
     await StoreImageApi(fileData).then((res) => {
       if (res.data != null) {
+        console.log("HI tayyab");
         console.log(res.data);
         navigate("/post", { state: { imageUri: res.data } });
       } else {
         console.log("there was error while creating post");
       }
     });
+  };
+
+  const handleSignOut = () => {
+    sessionStorage.clear();
+    navigate("/");
   };
 
   return (
@@ -61,10 +69,23 @@ export function Home(props) {
 
         return (
           <>
-            <h1>Welcome</h1>
-            <p>Thank you for visiting our website.</p>
+            <Header />
 
-            <button onClick={handleButtonClick}>Select File</button>
+            <button
+              style={{ marginLeft: "0%", marginTop: "5px" }}
+              className="btn1"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </button>
+
+            <button
+              style={{ marginLeft: "90%", marginTop: "10px" }}
+              className="btn1"
+              onClick={handleButtonClick}
+            >
+              New Post
+            </button>
             <input
               type="file"
               ref={fileInputRef}
@@ -73,6 +94,7 @@ export function Home(props) {
             />
 
             {posts.length > 0 && <Show posts={posts} setPosts={setPosts} />}
+            <Footer />
           </>
         );
       })()}
