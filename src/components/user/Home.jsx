@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Show } from "../user/Show";
 import Footer from "../../pages/common/footer";
 import Header from "../../pages/common/header";
+0
 
 export function Home(props) {
   const location = useLocation();
@@ -28,6 +29,7 @@ export function Home(props) {
   const handleFileInputChange = async (event) => {
     const selectedFile = event.target.files[0];
     const storedUserId = sessionStorage.getItem("userId");
+    console.log(selectedFile);
     const fileData = {
       filelocation: selectedFile,
       user: storedUserId,
@@ -35,8 +37,12 @@ export function Home(props) {
     await StoreImage(fileData);
   };
 
+  const handlePhoto = () => {
+    navigate("/newPost");
+  };
+
   const StoreImage = async (fileData) => {
-    console.log(fileData.filelocation);
+    // console.log(fileData.filelocation);
     await StoreImageApi(fileData).then((res) => {
       if (res.data != null) {
         console.log("HI tayyab");
@@ -84,7 +90,7 @@ export function Home(props) {
               className="btn1"
               onClick={handleButtonClick}
             >
-              New Post
+              Upload Post
             </button>
             <input
               type="file"
@@ -92,6 +98,14 @@ export function Home(props) {
               style={{ display: "none" }}
               onChange={handleFileInputChange}
             />
+
+            <button
+              style={{ marginLeft: "90%", marginTop: "10px" }}
+              className="btn1"
+              onClick={handlePhoto}
+            >
+              Take Photo
+            </button>
 
             {posts.length > 0 && <Show posts={posts} setPosts={setPosts} />}
             <Footer />

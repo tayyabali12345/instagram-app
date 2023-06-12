@@ -4,6 +4,7 @@ import { LoginApi } from "../../api/instagramApi.jsx";
 import SignUpPage from "../login/signup.jsx";
 import Footer from "../common/footer";
 import Header from "../common/header";
+import FBLogin from "../login/facebooklogin.jsx";
 
 const LoginIndex = (props) => {
   const [username, setUsername] = useState("");
@@ -35,7 +36,7 @@ const LoginIndex = (props) => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       {login && (
         <>
           <div
@@ -126,6 +127,7 @@ const LoginIndex = (props) => {
       )}
 
       {signup ? <SignUpPage /> : null}
+      <FBLogin />
       <Footer />
     </div>
   );

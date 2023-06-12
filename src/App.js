@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginIndex from "./pages/login/login";
 import { Home } from "./components/user/Home.jsx";
 import { Post } from "./components/user/Post.jsx";
+import Profile from "./components/user/Profile";
 
 import "./App.css";
 
@@ -15,6 +16,7 @@ const App = () => {
         <Route exact path="/" element={<LoginIndex />} />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/post" element={<Post />} />
+        <Route exact path="/newPost" element={<Profile />} />
       </Routes>
     </Router>
   );
