@@ -1,21 +1,21 @@
-import React, { useRef } from "react";
 import Webcam from "react-webcam";
 import { StoreImageApi } from "../../api/instagramApi.jsx";
-
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../component/UserContext";
+import React, { useState, useContext, useRef } from "react";
+
 const WebcamComponent = () => <Webcam />;
 const videoConstraints = {
-  width: "auto",
-  height: "auto",
+  width: 400,
+  height: 400,
   facingMode: "user",
 };
 const Profile = () => {
-  const navigate = useNavigate();
+  const { userId, setUserId } = useContext(UserContext);
   const [picture, setPicture] = useState("");
   const webcamRef = React.useRef(null);
+  const navigate = useNavigate();
   const capture = React.useCallback(async () => {
-    const storedUserId = sessionStorage.getItem("userId");
     const pictureSrc = webcamRef.current.getScreenshot();
     setPicture(pictureSrc);
 
@@ -23,49 +23,47 @@ const Profile = () => {
       /^data:image\/(png|jpeg|jpg);base64,/,
       ""
     );
-    const selectedFile = base64ToBlob(base64Data, "image/jpeg");
-    console.log(selectedFile);
-    console.log(pictureSrc);
 
-    const fileData = {
-      filelocation: selectedFile,
-      user: storedUserId,
+    const base64ToBlob = (base64Data, contentType = "image/jpeg") => {
+      const sliceSize = 1024;
+      const byteCharacters = atob(base64Data);
+      const byteArrays = [];
+
+      for (
+        let offset = 0;
+        offset < byteCharacters.length;
+        offset += sliceSize
+      ) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+      }
+
+      return new Blob(byteArrays, { type: contentType });
     };
-    await StoreImage(fileData);
-  });
 
-  const StoreImage = async (fileData) => {
-    // console.log(fileData.filelocation);
-    await StoreImageApi(fileData).then((res) => {
-      if (res.data != null) {
-        console.log("HI tayyab");
-        console.log(res.data);
-        navigate("/post", { state: { imageUri: res.data } });
-      } else {
-        console.log("there was error while creating post");
-      }
+    const StoreImage = (fileData) => {
+      StoreImageApi(fileData).then((res) => {
+        if (res.data != null) {
+          navigate("/post", { state: { imageUri: res.data } });
+        } else {
+          console.log("there was error while creating post");
+        }
+      });
+    };
+
+    const selectedFile = base64ToBlob(base64Data, "image/jpeg");
+    await StoreImage({
+      filelocation: selectedFile,
+      user: userId,
     });
-  };
-
-  const base64ToBlob = (base64Data, contentType = "image/jpeg") => {
-    const sliceSize = 1024;
-    const byteCharacters = atob(base64Data);
-    const byteArrays = [];
-
-    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-      const byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
-    }
-
-    return new Blob(byteArrays, { type: contentType });
-  };
+  });
 
   return (
     <div>

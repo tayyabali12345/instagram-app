@@ -1,19 +1,16 @@
 import React from "react";
 
-const Header = (props) => {
+const Header = ({ menuItems }) => {
   return (
     <header className="header">
       <nav className="header-nav">
         <div className="logo">INSTAGRAM APP</div>
         <div className="header-fields">
-          <div className="field">Home</div>
-          <div className="field">About Us</div>
-          <div className="field">License</div>
-          <div className="field">Contact Us</div>
-          <div className="field">About App</div>
-
-
-
+          {menuItems.map((item, index) => (
+            <div className="field" key={index}>
+              <a href={item.url}>{item.label}</a>
+            </div>
+          ))}
         </div>
       </nav>
     </header>

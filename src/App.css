@@ -97,6 +97,10 @@
   cursor: pointer;
 }
 
+.input1 {
+  display: none;
+}
+
 .btn2 {
   padding: 8px 16px;
   font-size: 16px;
@@ -125,4 +129,82 @@
 .custom {
   font-weight: lighter;
   margin-left: 0.5%;
+}
+
+.sp {
+  margin-left: 0% !important;
+  margin-top: 5% !important;
+}
+
+.sp1 {
+  margin-left: 90% !important;
+  margin-top: 10px !important;
+}
+
+.container1 {
+  display: flex;
+  justify-content: center;
+}
+
+.imagepost {
+  max-width: 700px;
+  height: 600px;
+  object-fit: contain;
+}
+
+.con3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
+  text-align: center;
+}
+
+.heading {
+  margin-bottom: 1rem;
+  color: #007bff;
+}
+
+.label1 {
+  margin-bottom: 0.5rem;
+}
+
+.sharedinput {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 8px;
+  margin-bottom: 1rem;
+}
+
+.sharedbtn {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.error {
+  color: red;
+}
+
+.textfield {
+  width: 300px;
+  height: 20px;
+  font-size: 12px;
+  padding: 6px;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5%;
+}
+
+.imagefield {
+  max-width: 700px;
+  height: 600px;
+  object-fit: contain;
+  margin-top: 5%;
 }
