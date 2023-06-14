@@ -1,18 +1,35 @@
 import axios from "axios";
 
-export const LoginApi = async (loginData) => {
+const createLoginForm = (loginData) => {
   const formData = new FormData();
   formData.append("username", loginData.username);
   formData.append("password", loginData.password);
-  return await axios.post("http://localhost:8080/login", formData);
+  return formData;
+};
+
+const createImageForm = (fileData) => {
+  const formData = new FormData();
+  formData.append("file", fileData.filelocation);
+  formData.append("user", fileData.user);
+  return formData;
+};
+
+export const LoginApi = async (loginData) => {
+  const formData = createLoginForm(loginData);
+  return await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, formData);
 };
 
 export const SignUpApi = async (SignUpData) => {
-  return await axios.post("http://localhost:8080/signup", SignUpData);
+  return await axios.post(
+    `${process.env.REACT_APP_BASE_URL}/signup`,
+    SignUpData
+  );
 };
 
 export const DeleteImageApi = async (postId) => {
-  return await axios.delete(`http://localhost:8080/post/${postId}/delete`);
+  return await axios.delete(
+    `${process.env.REACT_APP_BASE_URL}/post/${postId}/delete`
+  );
 };
 
 export const EditImageApi = async (postId, editedContent) => {
@@ -23,7 +40,7 @@ export const EditImageApi = async (postId, editedContent) => {
 
 export const AllPostsApi = async (setPosts) => {
   axios
-    .get("http://localhost:8080/allPosts")
+    .get(`${process.env.REACT_APP_BASE_URL}/allPosts`)
     .then((response) => {
       setPosts(response.data);
     })
@@ -35,9 +52,9 @@ export const AllPostsApi = async (setPosts) => {
 };
 
 export const StoreImageApi = async (fileData) => {
-  const formData = new FormData();
-  formData.append("file", fileData.filelocation);
-  formData.append("user", fileData.user);
-
-  return await axios.post("http://localhost:8080/storeImage", formData);
+  const formData = createImageForm(fileData);
+  return await axios.post(
+    `${process.env.REACT_APP_BASE_URL}/storeImage`,
+    formData
+  );
 };

@@ -1,15 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { DeleteImageApi, EditImageApi } from "../../api/instagramApi.jsx";
-import { useState, useEffect } from "react";
-import Footer from "../../pages/common/footer";
-import Header from "../../pages/common/header";
+import { useState } from "react";
 
 export function Show(props) {
   const { posts, setPosts } = props;
-  console.log(posts);
-  const [reload, setReload] = useState(false);
-  const [signedUser, setSignedUser] = useState(null);
   const [editedContent, setEditedContent] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setEditedContent(event.target.value);
@@ -20,8 +16,8 @@ export function Show(props) {
     setEditedContent("");
   };
 
-  const handleEdit = async (postId, editedContent) => {
-    await EditImageApi(postId, editedContent).then((res) => {
+  const handleEdit = (postId, editedContent) => {
+    EditImageApi(postId, editedContent).then((res) => {
       if (res.data === true) {
         console.log(res.data);
         setPosts((prevPosts) =>
@@ -45,14 +41,8 @@ export function Show(props) {
     });
   };
 
-  useEffect(() => {
-    const storedUserId = sessionStorage.getItem("userId");
-    setSignedUser(storedUserId);
-  }, []);
-
-  const navigate = useNavigate();
-  const handleDelete = async (postId) => {
-    await DeleteImageApi(postId).then((res) => {
+  const handleDelete = (postId) => {
+    DeleteImageApi(postId).then((res) => {
       if (res.data != null) {
         console.log(res.data);
         setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
@@ -92,26 +82,14 @@ export function Show(props) {
                 type="text"
                 value={editedContent}
                 onChange={handleInputChange}
-                style={{
-                  width: "300px",
-                  height: "20px",
-                  fontSize: "12px",
-                  padding: "6px",
-                  marginBottom: "0.5rem",
-                  marginRight: "0.5%",
-                }}
+                className="textfield"
               />
             </div>
             <div>
               <img
                 src={post.uri}
-                alt="Post Image"
-                style={{
-                  maxWidth: "700px",
-                  height: "600px",
-                  objectFit: "contain",
-                  marginTop: "5%",
-                }}
+                alt="Post_Image"
+                className="imagefield"
               />
             </div>
           </div>
