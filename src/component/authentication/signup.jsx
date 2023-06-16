@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { SignUpApi } from "../../api/instagramApi";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext.js";
 
 function SignUpPage() {
+  const { userId, setUserId } = useContext(UserContext);
   const [signupPassword, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -20,6 +22,7 @@ function SignUpPage() {
         if (res.status === 200) {
           const userId = res.data.id;
           sessionStorage.setItem("userId", userId);
+          setUserId(userId);
           navigate("/home");
         } else {
           setError("Error while login, try again");

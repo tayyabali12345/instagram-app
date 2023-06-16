@@ -15,6 +15,7 @@ const Profile = () => {
   const [picture, setPicture] = useState("");
   const webcamRef = React.useRef(null);
   const navigate = useNavigate();
+
   const capture = React.useCallback(async () => {
     const pictureSrc = webcamRef.current.getScreenshot();
     setPicture(pictureSrc);
