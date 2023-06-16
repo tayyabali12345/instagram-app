@@ -8,7 +8,7 @@ const Header = ({ menuItems }) => {
         <div className="header-fields">
           {menuItems.map((item, index) => (
             <div className="field" key={index}>
-              <a href={item.url}>{item.label}</a>
+              <a className="header_item" href={item.url}>{item.label}</a>
             </div>
           ))}
         </div>

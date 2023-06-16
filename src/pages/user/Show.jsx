@@ -32,9 +32,7 @@ export function Show(props) {
           })
         );
 
-        navigate("/home", {
-          state: { signedUser: null, functionality: null },
-        });
+        navigate("/home");
       } else {
         console.log("there was error while creating post");
       }
@@ -47,9 +45,7 @@ export function Show(props) {
         console.log(res.data);
         setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
 
-        navigate("/home", {
-          state: { signedUser: null, functionality: null },
-        });
+        navigate("/home");
       } else {
         console.log("there was error while creating post");
       }
@@ -57,9 +53,9 @@ export function Show(props) {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div className="con5">
       {posts.map((post) => (
-        <div key={post.id} style={{ marginBottom: "20px" }}>
+        <div className="con6" key={post.id} >
           <p className="allpost">
             User: <span className="custom">{post.user?.name}</span>
           </p>
@@ -67,7 +63,7 @@ export function Show(props) {
             Description: <span className="custom">{post.content}</span>
           </p>
           <div style={{ display: "flex" }}>
-            <div style={{ flex: "1", marginLeft: "5%", marginTop: "5%" }}>
+            <div className="con7" >
               <button className="btn3" onClick={() => handleDelete(post.id)}>
                 Delete Post
               </button>
@@ -86,11 +82,7 @@ export function Show(props) {
               />
             </div>
             <div>
-              <img
-                src={post.uri}
-                alt="Post_Image"
-                className="imagefield"
-              />
+              <img src={post.uri} alt="Post_Image" className="imagefield" />
             </div>
           </div>
           )}

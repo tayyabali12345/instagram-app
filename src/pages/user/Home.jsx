@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Show } from "./Show";
 import { UserContext } from "../../component/UserContext";
 
-export function Home(props) {
+export function Home() {
   const { userId, setUserId } = useContext(UserContext);
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
@@ -43,39 +43,34 @@ export function Home(props) {
 
   const handleSignOut = () => {
     sessionStorage.clear();
+    console.log("I am here in home page");
+    setUserId(null);
     navigate("/");
   };
 
   return (
     <div>
-      {(() => {
-        return (
-          <>
-            <button className="btn1 sp" onClick={handleSignOut}>
-              Sign Out
-            </button>
+      <>
+        <button className="btn1 sp" onClick={handleSignOut}>
+          Sign Out
+        </button>
 
-            <button className="btn1 sp1" onClick={handleButtonClick}>
-              Upload Post
-            </button>
-            <input
-              className="input1"
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileInputChange}
-            />
+        <button className="btn1 sp1" onClick={handleButtonClick}>
+          Upload Post
+        </button>
+        <input
+          className="input1"
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileInputChange}
+        />
 
-            <button
-              className="btn1 sp1"
-              onClick={handlePhoto}
-            >
-              Take Photo
-            </button>
+        <button className="btn1 sp1" onClick={handlePhoto}>
+          Take Photo
+        </button>
 
-            {posts?.length > 0 && <Show posts={posts} setPosts={setPosts} />}
-          </>
-        );
-      })()}
+        {posts?.length > 0 && <Show posts={posts} setPosts={setPosts} />}
+      </>
     </div>
   );
 }
