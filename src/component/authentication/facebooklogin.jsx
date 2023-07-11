@@ -1,6 +1,5 @@
 import { LoginSocialFacebook } from "reactjs-social-login";
-import CustomFacebookButton from "./FBLoginbtn";
-// import { FacebookLoginButton } from "react-social-login-buttons";
+import { FacebookLoginButton } from "react-social-login-buttons";
 
 function FacebookLogin() {
   return (
@@ -13,7 +12,7 @@ function FacebookLogin() {
         console.log(error);
       }}
     >
-      <CustomFacebookButton />
+      <FacebookLoginButton />
     </LoginSocialFacebook>
   );
 }

@@ -12,7 +12,7 @@ const videoConstraints = {
 };
 const Profile = () => {
   const { userId, setUserId } = useContext(UserContext);
-  const [picture, setPicture] = useState();
+  const [picture, setPicture] = useState("");
   const webcamRef = React.useRef(null);
   const navigate = useNavigate();
 
@@ -72,7 +72,7 @@ const Profile = () => {
         React Photo Capture using Webcam Examle
       </h2>
       <div>
-        {picture  ? (
+        {picture == "" ? (
           <Webcam
             audio={false}
             height={400}
@@ -86,7 +86,7 @@ const Profile = () => {
         )}
       </div>
       <div>
-        {!picture ? (
+        {picture != "" ? (
           <button
             onClick={(e) => {
               e.preventDefault();

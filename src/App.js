@@ -19,6 +19,7 @@ import "./App.css";
 
 function Protected({ children }) {
   const { userId, setUserId } = useContext(UserContext);
+  debugger;
   if (userId == null) {
     return (
       <div>
@@ -31,24 +32,12 @@ function Protected({ children }) {
   }
   return children;
 }
-
 const App = () => {
   return (
-    <>
-      <Router>
-        <UserProvider>
+    <Router>
+      <UserProvider>
+        <Layout>
           <Routes>
-            <Route
-              path="/signup"
-              element={
-                <Layout>
-                  <Protected>
-                    <SignUpPage />
-                  </Protected>
-                </Layout>
-              }
-            />
-
             <Route
               path="/"
               element={
@@ -59,41 +48,44 @@ const App = () => {
             />
 
             <Route
+              path="/signup"
+              element={
+                <Protected>
+                  <SignUpPage />
+                </Protected>
+              }
+            />
+
+            <Route
               path="/home"
               element={
-                <Layout>
-                  <Protected>
-                    <Home />
-                  </Protected>
-                </Layout>
+                <Protected>
+                  <Home />
+                </Protected>
               }
             />
 
             <Route
               path="/post"
               element={
-                <Layout>
-                  <Protected>
-                    <Post />
-                  </Protected>
-                </Layout>
+                <Protected>
+                  <Post />
+                </Protected>
               }
             />
 
             <Route
               path="/newpost"
               element={
-                <Layout>
-                  <Protected>
-                    <Profile />
-                  </Protected>
-                </Layout>
+                <Protected>
+                  <Profile />
+                </Protected>
               }
             />
           </Routes>
-        </UserProvider>
-      </Router>
-    </>
+        </Layout>
+      </UserProvider>
+    </Router>
   );
 };
 

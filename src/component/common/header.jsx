@@ -1,29 +1,19 @@
 import React from "react";
-import { FaEllipsisH } from "react-icons/fa";
-
 
 const Header = ({ menuItems }) => {
   return (
-    <aside className="sidebar">
-      <h1>Instagram</h1>
-      <nav className="sidebar-nav">
-        {menuItems.map((item, index) => (
-          <div className="sidebaaar" key={index}>
-            <a className="sidebaaar">
-              {item.url}
-              {""} {item.label}
-            </a>
-          </div>
-        ))}
-
-        <div className="">
-          <a className="lastIt">
-            {<FaEllipsisH />}
-            {""} More
-          </a>
+    <header className="header">
+      <nav className="header-nav">
+        <div className="logo">INSTAGRAM APP</div>
+        <div className="header-fields">
+          {menuItems.map((item, index) => (
+            <div className="field" key={index}>
+              <a className="header_item" href={item.url}>{item.label}</a>
+            </div>
+          ))}
         </div>
       </nav>
-    </aside>
+    </header>
   );
 };
 
