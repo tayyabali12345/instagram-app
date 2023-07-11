@@ -33,9 +33,24 @@ const LoginIndex = () => {
 
   return (
     <div>
-      <div className="con2">
+      <div
+        className="con2"
+        style={{
+          boxShadow: "1px 2px 9px #000b06",
+          margin: "auto",
+          marginTop: "50px",
+          marginBottom: "20px",
+          // padding: "1em",
+          height: "3%",
+          width: "30%",
+          textAlign: "center",
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+        }}
+      >
         <div className="con3">
-          <h2 className="heading">Login</h2>
+          <h2 className="heading">Instagram</h2>
           <form>
             <label className="label1">
               <input
@@ -60,15 +75,47 @@ const LoginIndex = () => {
             <button type="button" onClick={handleLogin} className="sharedbtn">
               Login
             </button>
-            <button type="button" onClick={handleSignUp} className="sharedbtn">
+            <br />
+            <p>-------------OR-------------</p>
+            {/* <button type="button" onClick={handleSignUp} className="sharedbtn">
               Signup
+            </button> */}
+
+            <FBLogin />
+            <button
+              type="button"
+              className="forget"
+              style={{ border: "none", color: "#3b5998" }}
+            >
+              Forget Password?
             </button>
 
             {error && <div className="error">{error}</div>}
           </form>
         </div>
       </div>
-      <FBLogin />
+
+      <div
+        style={{
+          boxShadow: "1px 2px 9px #000b06",
+          margin: "auto",
+          marginTop: "20px",
+          marginBottom: "20px",
+          paddingTop: "15px",
+          paddingBottom: "15px",
+          height: "30%",
+          width: "30%",
+          textAlign: "center",
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+        }}
+      >
+        <span style={{ color: "black" }}>Don't have an account?</span>
+        <button type="button" onClick={handleSignUp} className="sharedbtn1">
+          Signup
+        </button>
+      </div>
     </div>
   );
 };

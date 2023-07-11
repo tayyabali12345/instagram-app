@@ -51,23 +51,25 @@ export function Home() {
   return (
     <div>
       <>
-        <button className="btn1 sp" onClick={handleSignOut}>
-          Sign Out
-        </button>
+        <div className="topbtn">
+          <button className="takebtn" onClick={handlePhoto}>
+            Take Photo
+          </button>
 
-        <button className="btn1 sp1" onClick={handleButtonClick}>
-          Upload Post
-        </button>
-        <input
-          className="input1"
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileInputChange}
-        />
+          <button className="uploadbtn" onClick={handleButtonClick}>
+            Upload Post
+          </button>
+          <input
+            className="input1"
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileInputChange}
+          />
 
-        <button className="btn1 sp1" onClick={handlePhoto}>
-          Take Photo
-        </button>
+          <button className="signoutbtn" onClick={handleSignOut}>
+            Sign Out
+          </button>
+        </div>
 
         {posts?.length > 0 && <Show posts={posts} setPosts={setPosts} />}
       </>
