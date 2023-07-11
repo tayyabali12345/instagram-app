@@ -1,10 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { DeleteImageApi, EditImageApi } from "../../api/instagramApi.jsx";
 import { useState } from "react";
+import { AiOutlineHeart } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa";
+import { BiShare } from "react-icons/bi";
+import { MdSaveAlt } from "react-icons/md";
+import { FiMoreHorizontal } from "react-icons/fi";
+import { TfiCommentsSmiley } from "react-icons/tfi";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
+// import { IconName } from "react-icons/bs";
 
 export function Show(props) {
   const { posts, setPosts } = props;
   const [editedContent, setEditedContent] = useState("");
+
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -55,37 +65,62 @@ export function Show(props) {
   return (
     <div className="con5">
       {posts.map((post) => (
-        <div className="con6" key={post.id} >
-          <p className="allpost">
-            User: <span className="custom">{post.user?.name}</span>
-          </p>
-          <p className="allpost">
-            Description: <span className="custom">{post.content}</span>
-          </p>
-          <div style={{ display: "flex" }}>
-            <div className="con7" >
-              <button className="btn3" onClick={() => handleDelete(post.id)}>
-                Delete Post
-              </button>
-              <br />
-              <br />
-              <button className="btn2" onClick={() => handleEditPost(post.id)}>
-                Save Edit
-              </button>
-              <input
-                id="editedContentInput"
-                placeholder="Type New Description"
-                type="text"
-                value={editedContent}
-                onChange={handleInputChange}
-                className="textfield"
-              />
-            </div>
-            <div>
-              <img src={post.uri} alt="Post_Image" className="imagefield" />
-            </div>
+        <div className="con6" key={post.id}>
+          <div className="inlineitems">
+            <img className="profileimage" src={post.uri} alt="Post_Image" />
+
+            <span className="custom">{post.user?.name}</span>
+            <FiMoreHorizontal style={{ marginLeft: "49%" }} />
           </div>
-          )}
+
+          <div>
+            <div className="tempo">
+              <img className="imagefield" src={post.uri} alt="Post_Image" />
+              <div>
+                <AiOutlineHeart size={24} />
+                <FaRegComment style={{ marginLeft: "20px" }} size={24} />
+                <BiShare style={{ marginLeft: "20px" }} size={24} />
+                <RiDeleteBin6Line
+                  onClick={() => handleDelete(post.id)}
+                  style={{ marginLeft: "49%" }}
+                  size={24}
+                />
+                <p>
+                  4211 <span style={{ fontWeight: "bolder" }}>likes</span>
+                </p>
+              </div>
+              <div></div>
+            </div>
+
+            <p className="allpost">
+              {post.user?.name}:{" "}
+              <span className="custom" style={{ fontWeight: "lighter" }}>
+                {post.content}
+              </span>
+            </p>
+
+            <input
+              id="editedContentInput"
+              placeholder="Type New Description"
+              type="text"
+              value={editedContent}
+              onChange={handleInputChange}
+              className="textfield"
+            />
+
+            <TfiCommentsSmiley
+              className="btn2"
+              onClick={() => handleEditPost(post.id)}
+              style={{
+                marginLeft: "",
+                color: "black",
+                backgroundColor: "white",
+                marginLeft: "20%",
+              }}
+              size={20}
+            />
+          </div>
+          <hr className="post-separator" />
         </div>
       ))}
     </div>
