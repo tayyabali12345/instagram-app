@@ -52,5 +52,5 @@ export const AllPostsApi = async (setPosts) => {
 
 export const StoreImageApi = async (fileData) => {
   const formData = createImageForm(fileData);
-  return await axiosInstance.post(`/storeImage`, formData);
+  return await axiosInstance.post(`/storeImage`, createImageForm(fileData));
 };
